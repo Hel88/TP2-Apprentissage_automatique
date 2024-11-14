@@ -2,8 +2,9 @@
 
 ## Membres du groupe
 
-- Héléna Barbillon - HBAR30530200
-- Chaimaa Oulmalme - COUL...
+- Héléna Barbillon - BARH30530200
+- Chaimaa Oulmalme - ...
+- 
 
 ## Installation des dépendances
 ````shell
