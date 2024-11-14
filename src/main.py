@@ -1,49 +1,33 @@
-from ucimlrepo import fetch_ucirepo
-import umap
-from umap.parametric_umap import ParametricUMAP
-from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from ucimlrepo import fetch_ucirepo
+from UMAP_module import UMAP_module
 
 
-# fetch dataset
-print("fetch data")
+# Récupérer le dataset
+print("Fetching dataset...")
 covertype = fetch_ucirepo(id=31)
-print("done fetching data")
+print("done")
 
-
-# data (as pandas dataframes)
+# data
 X = covertype.data.features
 y = covertype.data.targets
 
-# metadata
-print(covertype.metadata)
+print(X.shape)
+print(y.shape)
 
-# variable information
-print(covertype.variables)
-
-# Sélectionner seulement 10% de la base de données au hasard
-X_sample, _, y_sample, _ = train_test_split(X, y, train_size=0.1, stratify=y, random_state=42)
-print(X_sample.shape)
-print(y_sample.shape)
+print(y.Cover_Type.value_counts())
 
 
-#
-# # # Pré-traitements
-# # from sklearn.impute import SimpleImputer
-# # imputer = SimpleImputer(strategy="mean")  # Choisir la stratégie (mean, median, most_frequent)
-# # X = imputer.fit_transform(X)
-#
-# #standardiser données
-# scaler = StandardScaler()
-# X_scaled = scaler.fit_transform(X)
-#
-# print("Lancement de UMAP...")
-# reducer = umap.UMAP()
-# embedding = reducer.fit_transform(X_scaled)
-# print("Umap fini")
-# print(embedding.shape)
-#
-#
-# # ### version paramétrique
-# # embedder = ParametricUMAP()
-# # embedding = embedder.fit_transform(X)
+# Réduire le dataset
+new_size = 0.2   # pourcentage du dataset qu'on veut garder
+X_sampled, _, y_sampled, _ = train_test_split(X, y, train_size=new_size, stratify=y, random_state=42)
+
+# Standardiser données
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X_sampled)
+
+# UMAP visualisation
+umap = UMAP_module(X_scaled, y_sampled)
+umap.run_algo()
+umap.display("UMAP plotting with 50% of the dataset", "umap_20%_of_dataset")
