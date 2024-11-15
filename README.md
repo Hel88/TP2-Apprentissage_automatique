@@ -3,8 +3,8 @@
 ## Membres du groupe
 
 - Héléna Barbillon - BARH30530200
-- Chaimaa Oulmalme - ...
-- 
+- Chaimaa Oulmalme - OULC12590000
+- Samia Carchaf - CARS05550300
 
 ## Installation des dépendances
 ````shell
